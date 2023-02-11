@@ -13,7 +13,7 @@ public abstract class Body {
 	protected Vector2D pos;
 	protected double mass;
 	
-	private Body(String ID, String GID, Vector2D speed, Vector2D pos, double mass) {
+	public Body(String ID, String GID, Vector2D speed, Vector2D pos, double mass) {
 		try {
 			validArguements(ID, GID, speed, pos, mass);
 			this.ID = ID;
