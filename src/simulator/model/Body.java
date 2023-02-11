@@ -1,5 +1,7 @@
 package simulator.model;
 
+import org.json.JSONObject;
+
 import simulator.misc.Vector2D;
 
 public abstract class Body {
@@ -25,6 +27,56 @@ public abstract class Body {
 			throw new IllegalArgumentException(e.getMessage());
 		}
 		
+	}
+	
+	public String getID() {
+		return ID;
+	}
+
+	public String getGID() {
+		return GID;
+	}
+
+	public Vector2D getSpeed() {
+		return speed;
+	}
+
+	public Vector2D getForce() {
+		return force;
+	}
+
+	public Vector2D getPos() {
+		return pos;
+	}
+
+	public double getMass() {
+		return mass;
+	}
+	
+	void addForce(Vector2D f) {
+		force.plus(f);
+	}
+	
+	void resetForce() {
+		force = new Vector2D(0, 0);
+	}
+	
+	abstract void advance(double dt);
+	
+	public JSONObject getState() {
+		JSONObject JS = new JSONObject();
+		
+		JS.put("id", this.ID);
+		JS.put("m", this.mass);
+		JS.put("p", getPos().asJSONArray());
+		JS.put("v", getSpeed().asJSONArray());
+		JS.put("f", getForce().asJSONArray());
+		
+		return JS;
+	}
+	
+	public String toString() {
+		return getState().toString();
 	}
 
 	private void validArguements(String iD2, String gID2, Vector2D speed2, Vector2D pos2, double mass2) {
