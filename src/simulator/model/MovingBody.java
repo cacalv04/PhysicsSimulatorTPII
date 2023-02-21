@@ -7,7 +7,7 @@ public class MovingBody extends Body{
 	private Vector2D ace;
 
 	public MovingBody(String ID, String GID, Vector2D speed, Vector2D pos, double mass) {
-		super(GID, GID, speed, pos, mass);
+		super(ID, GID, speed, pos, mass);
 	}
 
 	@Override

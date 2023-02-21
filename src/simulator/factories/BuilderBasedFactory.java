@@ -1,9 +1,5 @@
 package simulator.factories;
 
-public class BuilderBaseFactory {
-
-	package simulator.factories;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +29,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		@Override
 		public T createInstance(JSONObject info) {
 		if (info == null) {
-		throw new IllegalArgumentException("Invalid value for createInstance:
-		null");
+		throw new IllegalArgumentException("Invalid value for createInstance:null");
 		}
 		// Search for a builder with a tag equals to info . getString ("type"), call its
 		// createInstance method and return the result if it is not null . The value you
@@ -51,4 +46,4 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		}
 		}
 
-}
+
