@@ -31,7 +31,7 @@ public class Controller {
 			JSONArray groups = jsonInupt.getJSONArray("groups");    //groups es un array de todos los grupos que hay en formato JSON
 			
 			for(int i = 0; i < groups.length(); i++) {
-				physicsSimulator.addGroup(bodiesFactory.createInstance(bodies.getJSONObject(i)));
+				//physicsSimulator.addGroup(bodiesFactory.createInstance(groups.getJSONObject(i)));
 			}
 		}
 		catch (IllegalArgumentException ex) {

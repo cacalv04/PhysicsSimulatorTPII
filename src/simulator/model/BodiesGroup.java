@@ -57,7 +57,7 @@ public class BodiesGroup {
 		bgroup.put("id", this.ID);
 		JSONArray bodies_array = new JSONArray();
 		for (Body b : bodies) {
-			bodies_array.put(b.getID());
+			bodies_array.put(b.getId());
 		}
 		bgroup.put("bodies", bodies_array);
 		
