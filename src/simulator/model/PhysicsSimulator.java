@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import simulator.misc.Vector2D;
 
 public class PhysicsSimulator {
-	
 	private double dt;
 	private ForceLaws laws;
 	private Map<String, BodiesGroup> groupsMap;
@@ -59,12 +58,14 @@ public class PhysicsSimulator {
 	
 	public JSONObject getState() {
 		JSONObject JS = new JSONObject();
+		JSONArray groups_array = new JSONArray();
 		
 		JS.put("time", this.actualTime);
-		JSONArray groups_array = new JSONArray();
+
 		for (String b : BG) {
 			groups_array.put(groupsMap.get(b).getState());
 		}
+		
 		JS.put("groups", groups_array);
 		
 		return JS;

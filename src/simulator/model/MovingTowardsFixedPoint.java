@@ -5,9 +5,8 @@ import java.util.List;
 import simulator.misc.Vector2D;
 
 public class MovingTowardsFixedPoint implements ForceLaws{
-	
-	private Vector2D c;
 	private double g;
+	private Vector2D c;
 
 	public MovingTowardsFixedPoint(Vector2D c, double g) {
 		
@@ -25,7 +24,7 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 	public void apply(List<Body> bs) {
 		// TODO Auto-generated method stub
 		for(Body b : bs) {
-			b.addForce(c.minus(b.getPosition()).scale(g * b.getMass()));
+			b.addForce(c.minus(b.getPosition()).direction().scale(g * b.getMass()));
 		}
 	}
 	
