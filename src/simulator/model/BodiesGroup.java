@@ -25,11 +25,11 @@ public class BodiesGroup {
 		}
 	}
 	
-	public String getID() {
+	public String getId() {
 		return ID;
 	}
 
-	public void setLaws(ForceLaws laws) {
+	public void setForceLaws(ForceLaws laws) {
 		if(laws == null)throw new IllegalArgumentException("[ERROR]: force laws are null");
 		this.laws = laws;
 	}

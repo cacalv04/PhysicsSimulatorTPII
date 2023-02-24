@@ -52,9 +52,9 @@ public class PhysicsSimulator {
 		groupsMap.get(b.getgId()).addBody(b);
 	}
 	
-	public void setForceLaw(String id, ForceLaws fl) {
+	public void setForceLaws(String id, ForceLaws fl) {
 		if(!groupsMap.containsKey(id))throw new IllegalArgumentException("[ERROR]: the body group does not exists");
-		groupsMap.get(id).setLaws(fl);
+		groupsMap.get(id).setForceLaws(fl);
 	}
 	
 	public JSONObject getState() {
