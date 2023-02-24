@@ -33,7 +33,7 @@ public abstract class Body {
 		return ID;
 	}
 
-	public String getGID() {
+	public String getgId() {
 		return GID;
 	}
 

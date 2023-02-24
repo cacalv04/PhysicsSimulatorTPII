@@ -18,7 +18,7 @@ public class PhysicsSimulator {
 	private double actualTime;
 	private List<String> BG;
 
-	public PhysicsSimulator(double dt, ForceLaws fl) {
+	public PhysicsSimulator(ForceLaws fl, double dt) {
 		try {
 			validArguements(dt, fl);
 			this.dt = dt;
@@ -48,8 +48,8 @@ public class PhysicsSimulator {
 	}
 	
 	public void addBody(Body b) {
-		if(!groupsMap.containsKey(b.getGID()))throw new IllegalArgumentException("[ERROR]: the body group does not exists");
-		groupsMap.get(b.getGID()).addBody(b);
+		if(!groupsMap.containsKey(b.getgId()))throw new IllegalArgumentException("[ERROR]: the body group does not exists");
+		groupsMap.get(b.getgId()).addBody(b);
 	}
 	
 	public void setForceLaw(String id, ForceLaws fl) {
