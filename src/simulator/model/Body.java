@@ -29,7 +29,7 @@ public abstract class Body {
 		
 	}
 	
-	public String getID() {
+	public String getId() {
 		return ID;
 	}
 
@@ -37,7 +37,7 @@ public abstract class Body {
 		return GID;
 	}
 
-	public Vector2D getSpeed() {
+	public Vector2D getVelocity() {
 		return speed;
 	}
 
@@ -45,7 +45,7 @@ public abstract class Body {
 		return force;
 	}
 
-	public Vector2D getPos() {
+	public Vector2D getPosition() {
 		return pos;
 	}
 
@@ -68,8 +68,8 @@ public abstract class Body {
 		
 		JS.put("id", this.ID);
 		JS.put("m", this.mass);
-		JS.put("p", getPos().asJSONArray());
-		JS.put("v", getSpeed().asJSONArray());
+		JS.put("p", getPosition().asJSONArray());
+		JS.put("v", getVelocity().asJSONArray());
 		JS.put("f", getForce().asJSONArray());
 		
 		return JS;
