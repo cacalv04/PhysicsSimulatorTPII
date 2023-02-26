@@ -6,7 +6,7 @@ import simulator.model.NewtonUniversalGravitation;
 
 public class NewtonUniversalGravitationBuilder extends Builder{
 
-	public NewtonUniversalGravitationBuilder(String typeTag, String desc) {
+	public NewtonUniversalGravitationBuilder() {
 		super("nlug", "Newton law of universal gravitation");
 	}
 

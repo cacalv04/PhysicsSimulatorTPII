@@ -6,7 +6,7 @@ import simulator.model.NoForce;
 
 public class NoForceBuilder extends Builder {
 
-	public NoForceBuilder(String typeTag, String desc) {
+	public NoForceBuilder() {
 		super("nf", "No force");
 	}
 

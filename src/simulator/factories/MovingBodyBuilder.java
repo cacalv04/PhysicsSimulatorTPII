@@ -8,7 +8,7 @@ import simulator.model.MovingBody;
 
 public class MovingBodyBuilder extends Builder{
 
-	public MovingBodyBuilder(String typeTag, String desc) {
+	public MovingBodyBuilder() {
 		super("mv_body", "Moving body");
 		// TODO Auto-generated constructor stub
 	}

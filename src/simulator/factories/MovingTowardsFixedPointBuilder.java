@@ -8,7 +8,7 @@ import simulator.model.MovingTowardsFixedPoint;
 
 public class MovingTowardsFixedPointBuilder extends Builder{
 
-	public MovingTowardsFixedPointBuilder(String typeTag, String desc) {
+	public MovingTowardsFixedPointBuilder() {
 		super("mtfp", "Moving towards fixed point");
 		// TODO Auto-generated constructor stub
 	}
