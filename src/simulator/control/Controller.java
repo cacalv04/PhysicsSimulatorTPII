@@ -54,6 +54,7 @@ public class Controller {
 		
 		for(int i = 1; i <= n; i++) {
 			p.println(physicsSimulator.getState());
+			physicsSimulator.advance();
 		}
 		p.println("]");
 		p.println("}");
