@@ -2,9 +2,9 @@ package simulator.factories;
 
 import org.json.JSONObject;
 
-public class NewtonUniversalGravitationBuilder extends Builder{
+public class StacionaryBodyBuilder extends Builder{
 
-	public NewtonUniversalGravitationBuilder(String typeTag, String desc) {
+	public StacionaryBodyBuilder(String typeTag, String desc) {
 		super(typeTag, desc);
 		// TODO Auto-generated constructor stub
 	}

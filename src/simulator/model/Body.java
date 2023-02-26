@@ -5,27 +5,28 @@ import org.json.JSONObject;
 import simulator.misc.Vector2D;
 
 public abstract class Body {
+
 	protected String ID;
-	protected String gID;
+	protected String GID;
 	protected Vector2D speed;
 	protected Vector2D force;
 	protected Vector2D pos;
-	protected Vector2D ace;
 	protected double mass;
 	
-	public Body(String ID, String gID, Vector2D speed, Vector2D pos,  Vector2D ace, double mass) {
+	public Body(String ID, String GID, Vector2D speed, Vector2D pos, double mass) {
 		try {
-			validArguments(ID, gID, speed, pos, mass);
+			validArguements(ID, GID, speed, pos, mass);
 			this.ID = ID;
-			this.gID = gID;
+			this.GID = GID;
 			this.speed = speed;
 			this.pos = pos;
-			this.ace = ace;
 			this.mass = mass;
 			this.force = new Vector2D(0, 0);
-		}catch (IllegalArgumentException e) {
+		}
+		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(e.getMessage());
 		}
+		
 	}
 	
 	public String getId() {
@@ -33,39 +34,19 @@ public abstract class Body {
 	}
 
 	public String getgId() {
-		return gID;
+		return GID;
 	}
 
 	public Vector2D getVelocity() {
 		return speed;
 	}
-	
-	public void setVelocity(Vector2D speed) {
-		this.speed = speed;
-	}
 
 	public Vector2D getForce() {
 		return force;
 	}
-	
-	public void setForce(Vector2D force) {
-		this.force = force;
-	}
 
 	public Vector2D getPosition() {
 		return pos;
-	}
-	
-	public void setPosition(Vector2D pos) {
-		this.pos = pos;
-	}
-	
-	public Vector2D getAcceleration() {
-		return ace;
-	}
-	
-	public void setAcceleration(Vector2D ace) {
-		this.ace = ace;
 	}
 
 	public double getMass() {
@@ -98,9 +79,10 @@ public abstract class Body {
 		return getState().toString();
 	}
 
-	private void validArguments(String ID, String gID, Vector2D speed, Vector2D pos, double mass) {
+	private void validArguements(String iD2, String gID2, Vector2D speed2, Vector2D pos2, double mass2) {
 		// TODO Auto-generated method stub
-		if(ID == null|| gID == null || speed == null || pos == null || ace == null || mass < 0 ) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative");
-		if (ID.trim().length() > 0 || gID.trim().length() > 0) throw new IllegalArgumentException("[ERROR]: id or gid not including a character not void");
+		if(iD2 == null|| gID2 == null || speed2 == null || pos2 == null || mass2 < 0 ) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative");
+		if (iD2.trim().length()>0 || gID2.trim().length()>0) throw new IllegalArgumentException("[ERROR]: id or gid not including a character not void");
 	}
+	
 }

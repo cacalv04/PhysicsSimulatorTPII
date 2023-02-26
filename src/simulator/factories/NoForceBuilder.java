@@ -2,18 +2,17 @@ package simulator.factories;
 
 import org.json.JSONObject;
 
-import simulator.model.NoForce;
-
 public class NoForceBuilder extends Builder {
 
 	public NoForceBuilder(String typeTag, String desc) {
-		super("nf", "No force");
+		super(typeTag, desc);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected NoForce createInstance(JSONObject data) {
-		if(data == null) throw new IllegalArgumentException("[ERROR]: data is null");
-		return new NoForce();
+	protected Object createInstance(JSONObject data) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
