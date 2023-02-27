@@ -23,4 +23,8 @@ public class MovingBody extends Body{
 		}
 			pos = pos.plus(speed.scale(dt)).plus(ace.scale(0.5 * dt *dt));
 	}
+	
+	public Vector2D getAce() {
+		return ace;
+	}
 }

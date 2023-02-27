@@ -20,26 +20,25 @@ public class NewtonUniversalGravitation implements ForceLaws{
 	
 	@Override
 	public void apply(List<Body> bs) {
-		Vector2D fuerza = new Vector2D(0, 0);
-		double aux;
 		
 		for(Body b1 : bs) {
-			if(b1.getMass() == 0.0) {
-				//REVISAR
-				b1.setAcceleration(fuerza);
-				b1.setVelocity(fuerza);
-			}
-			else {
-				//CALCULAMOS FUERZA
-				for(Body b2: bs) {
-					if(!b2.equals(b1) && b2.getPosition().distanceTo(b1.getPosition()) > 0){
-						aux = (b1.getMass() * b2.getMass()) / (b2.getPosition().distanceTo(b1.getPosition()) * b2.getPosition().distanceTo(b1.getPosition()));
-						fuerza = fuerza.plus(b2.getPosition().minus(b1.getPosition()).direction().scale(aux));
-						b2.setAcceleration(fuerza.scale(1 / b1.getMass()));
-					}
+			for(Body b2: bs) {
+				if (b1!=b2) {
+					b1.addForce(force(b1, b2));
 				}
 			}
 		}
+	}
+	
+	private Vector2D force(Body a, Body b) {
+		Vector2D delta = b.getPosition().minus(a.getPosition());
+		double dist = delta.magnitude();
+		double magnitude = dist>0 ? (g * a.getMass() * b.getMass()) / (dist * dist) : 0.0;
+		return delta.direction().scale(magnitude);
+	}
+	
+	public String toString() {
+		return "Newton's Universal Gravitation with G = " + g;
 	}
 	
 	private void validArguments(double g) {
