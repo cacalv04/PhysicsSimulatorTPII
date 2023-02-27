@@ -1,5 +1,6 @@
 package simulator.control;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -15,30 +16,40 @@ import simulator.model.PhysicsSimulator;
 
 public class Controller {
 	
-	private PhysicsSimulator physicsSimulator;
-	private Factory<Body> bodiesFactory;
-	private Factory<ForceLaws> forceLawsFactory;
+	private PhysicsSimulator sim;
+	private Factory<Body> bodyfac;
+	private Factory<ForceLaws> lawsfac;
 
 	public Controller(PhysicsSimulator ps, Factory<Body> fb, Factory<ForceLaws> ff) {
-		this.physicsSimulator = ps;
-		this.forceLawsFactory = ff;
-		this.bodiesFactory = fb;
+		this.sim = ps;
+		this.lawsfac = ff;
+		this.bodyfac = fb;
 	}
 	
 	public void loadData(InputStream in) {
 		try {
-			JSONObject jsonInupt = new JSONObject(new JSONTokener(in));   //jsonInupt contiene lo que hay en todo el fichero in
+			JSONObject jsonInput = new JSONObject(new JSONTokener(in));   //jsonInupt contiene lo que hay en todo el fichero in
 			
-			JSONArray groups = jsonInupt.getJSONArray("groups");    //groups es un array de todos los grupos que hay en formato JSON
-			JSONArray bodies = jsonInupt.getJSONArray("bodies");
+			JSONArray groups = jsonInput.getJSONArray("groups");//groups es un array de todos los grupos que hay en formato JSON
+			
+			if(jsonInput.has("laws")) {
+				JSONArray laws = jsonInput.getJSONArray("laws");
+				
+				//REVISAR
+				for(int i = 0; i < laws.length(); i++) {
+					sim.setForceLaws(laws.getJSONObject(i).getString("id"), lawsfac.createInstance(laws.getJSONObject(i).getJSONObject("laws")));
+				}
+			}
+			
+			JSONArray bodies = jsonInput.getJSONArray("bodies");
 			
 			for(int i = 0; i < groups.length(); i++) {
-				physicsSimulator.addGroup(groups.getString(i));
+				sim.addGroup(groups.getString(i));
 			}
+			
 			for(int i = 0; i < groups.length(); i++) {
-				physicsSimulator.addBody(bodiesFactory.createInstance(bodies.getJSONObject(i)));
+				sim.addBody(bodyfac.createInstance(bodies.getJSONObject(i)));
 			}
-			//puede que falte la clave laws
 		}
 		catch (IllegalArgumentException ex) {
 			throw ex;
@@ -46,17 +57,25 @@ public class Controller {
 	}
 	
 	public void run(int n, OutputStream out) {
-		PrintStream p = new PrintStream(out);
-		p.println("{");
-		p.println("\"states\": [");
 		
-		p.println(physicsSimulator.getState());
+		if(out == null){
+			out = new OutputStream(){
+				@Override
+				public void write(int b) throws IOException {	}
+			};
+		}
+		
+		PrintStream p = new PrintStream(out);
+		p.println("{ \"states\": [");
+		p.println(sim.getState());
+		p.print(", ");
 		
 		for(int i = 1; i <= n; i++) {
-			p.println(physicsSimulator.getState());
-			physicsSimulator.advance();
+			p.println(sim.getState());
+			sim.advance();
+			p.print(", ");
 		}
-		p.println("]");
-		p.println("}");
+		
+		p.println("] }");
 	}
 }
