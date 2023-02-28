@@ -13,7 +13,7 @@ public abstract class Body {
 	protected Vector2D pos;
 	protected double mass;
 	
-	public Body(String ID, String GID, Vector2D speed, Vector2D pos, double mass) {
+	public Body(String ID, String GID, Vector2D pos, Vector2D speed, Double mass) {
 		try {
 			validArguements(ID, GID, speed, pos, mass);
 			this.ID = ID;
@@ -54,7 +54,7 @@ public abstract class Body {
 	}
 	
 	void addForce(Vector2D f) {
-		force.plus(f);
+		force = force.plus(f);
 	}
 	
 	void resetForce() {
@@ -79,10 +79,16 @@ public abstract class Body {
 		return getState().toString();
 	}
 
-	private void validArguements(String iD2, String gID2, Vector2D speed2, Vector2D pos2, double mass2) {
+	private void validArguements(String iD2, String gID2, Vector2D speed2, Vector2D pos2, Double mass2) {
 		// TODO Auto-generated method stub
-		if(iD2 == null|| gID2 == null || speed2 == null || pos2 == null || mass2 < 0 ) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative");
-		if (iD2.trim().length()>0 || gID2.trim().length()>0) throw new IllegalArgumentException("[ERROR]: id or gid not including a character not void");
+		if(iD2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative IID");
+		if(gID2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative GID");
+		if(speed2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative SPEED");
+		if(pos2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative POS");
+		if(mass2 == null ) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative MASS");
+
+		if (iD2.trim().length()==0 || gID2.trim().length()==0) throw new IllegalArgumentException("[ERROR]: id or gid not including a character not void");
+		if(mass2 <= 0) throw new IllegalArgumentException("[ERROR]: mass < 0");
 	}
 	
 }

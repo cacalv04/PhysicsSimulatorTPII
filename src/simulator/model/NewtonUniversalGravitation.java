@@ -42,6 +42,6 @@ public class NewtonUniversalGravitation implements ForceLaws{
 	}
 	
 	private void validArguments(double g) {
-		if(g < 0 ) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative");
+		if(g <= 0 ) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative");
 	}
 }

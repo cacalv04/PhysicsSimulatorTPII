@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -19,6 +20,7 @@ public class BodiesGroup {
 			validArguments(id, fl);
 			this.ID = id;
 			this.laws = fl;
+			bodies = new ArrayList<Body>();
 		}
 		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(e.getMessage());
@@ -37,11 +39,16 @@ public class BodiesGroup {
 	void addBody(Body b) {
 		if(b == null)throw new IllegalArgumentException("[ERROR]: the body is null");
 		if (bodies.contains(b)) throw new IllegalArgumentException("[ERROR]: the body already exists");
+		for(Body n : bodies) {
+			if(b.getId() == n.getId()) {
+				throw new IllegalArgumentException("[ERROR]: the bodie's id already exists");
+			}
+		}
 		bodies.add(b);
 	}
 	
 	void advance(double dt) {
-		if (dt < 0)throw new IllegalArgumentException("[ERROR]: delta time is negative");
+		if (dt <= 0)throw new IllegalArgumentException("[ERROR]: delta time is negative");
 		for(Body b : bodies) {
 			b.resetForce();
 		}
@@ -70,7 +77,7 @@ public class BodiesGroup {
 	
 	private void validArguments(String id2, ForceLaws fl) {
 		// TODO Auto-generated method stub
-		if(id2 == null || fl == null) throw new IllegalArgumentException("[ERROR]: Illegal arguments for bodies Group");
-		if(id2.trim().length()>0) throw new IllegalArgumentException("[ERROR]: id not including a character not void");
+		if(id2 == null || fl == null || id2.isEmpty()) throw new IllegalArgumentException("[ERROR]: Illegal arguments for bodies Group");
+		if(id2.trim().length()==0) throw new IllegalArgumentException("[ERROR]: id not including a character not void");
 	}
 }

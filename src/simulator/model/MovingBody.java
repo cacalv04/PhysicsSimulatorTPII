@@ -6,8 +6,8 @@ public class MovingBody extends Body{
 	
 	private Vector2D ace;
 
-	public MovingBody(String ID, String GID, Vector2D speed, Vector2D pos, double mass) {
-		super(ID, GID, speed, pos, mass);
+	public MovingBody(String ID, String GID, Vector2D pos, Vector2D speed, double mass) throws IllegalArgumentException {
+		super(ID, GID, pos, speed, mass);
 	}
 
 	@Override
@@ -22,6 +22,7 @@ public class MovingBody extends Body{
 			
 		}
 			pos = pos.plus(speed.scale(dt)).plus(ace.scale(0.5 * dt *dt));
+			speed = speed.plus(ace.scale(dt));
 	}
 	
 	public Vector2D getAce() {
