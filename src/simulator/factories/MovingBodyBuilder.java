@@ -22,12 +22,16 @@ public class MovingBodyBuilder extends Builder{
 		String id = data.getString("id");
 		String gid = data.getString("gid");
 		JSONArray paux = data.getJSONArray("p");
+		if(paux.length() != 2) throw new IllegalArgumentException("[ERROR]: p not 2D");
+
 		Vector2D p = new Vector2D(paux.getDouble(0), paux.getDouble(1));
 		JSONArray vaux = data.getJSONArray("v");
+		if(vaux.length() != 2) throw new IllegalArgumentException("[ERROR]: p not 2D");
+
 		Vector2D v = new Vector2D(vaux.getDouble(0), vaux.getDouble(1));
 		double m = data.getDouble("m");
 		
-		return new MovingBody(id, gid, v, p, m);
+		return new MovingBody(id, gid ,p, v, m);
 	}
 
 }

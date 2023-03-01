@@ -6,14 +6,15 @@ import simulator.misc.Vector2D;
 
 public class MovingTowardsFixedPoint implements ForceLaws{
 	
-	private Vector2D c;
+	private Vector2D vP;
 	private double g;
 
 	public MovingTowardsFixedPoint(Vector2D c, double g) {
 		
 		try {
 			validArguments(c, g);
-			this.c = c;
+			vP = new Vector2D(c);
+			this.vP = new Vector2D(c);
 			this.g = g;
 		}
 		catch (IllegalArgumentException e) {
@@ -25,7 +26,7 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 	public void apply(List<Body> bs) {
 		// TODO Auto-generated method stub
 		for(Body b : bs) {
-			b.addForce(c.minus(b.getPosition()).scale(g * b.getMass()));
+			b.addForce(vP.minus(b.getPosition()).direction().scale(g * b.getMass()));
 		}
 	}
 	

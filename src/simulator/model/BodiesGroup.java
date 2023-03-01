@@ -38,7 +38,7 @@ public class BodiesGroup {
 
 	void addBody(Body b) {
 		if(b == null)throw new IllegalArgumentException("[ERROR]: the body is null");
-		if (bodies.contains(b)) throw new IllegalArgumentException("[ERROR]: the body already exists");
+		//if (bodies.contains(b)) throw new IllegalArgumentException("[ERROR]: the body already exists");
 		for(Body n : bodies) {
 			if(b.getId() == n.getId()) {
 				throw new IllegalArgumentException("[ERROR]: the bodie's id already exists");
