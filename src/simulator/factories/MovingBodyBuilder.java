@@ -4,9 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.misc.Vector2D;
+import simulator.model.Body;
 import simulator.model.MovingBody;
 
-public class MovingBodyBuilder extends Builder{
+public class MovingBodyBuilder extends Builder<Body>{
 
 	public MovingBodyBuilder() {
 		super("mv_body", "Moving body");
@@ -14,7 +15,7 @@ public class MovingBodyBuilder extends Builder{
 	}
 
 	@Override
-	protected Object createInstance(JSONObject data) {
+	protected Body createInstance(JSONObject data) {
 		// TODO Auto-generated method stub
 		if(data == null) throw new IllegalArgumentException("[ERROR]: data is null");
 		if(!data.has("id") || !data.has("gid") || !data.has("p") || !data.has("v") || !data.has("m")) throw new IllegalArgumentException("[ERROR]: missing arguments");
