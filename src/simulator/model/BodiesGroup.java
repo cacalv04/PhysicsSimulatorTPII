@@ -64,7 +64,7 @@ public class BodiesGroup {
 		bgroup.put("id", this.ID);
 		JSONArray bodies_array = new JSONArray();
 		for (Body b : bodies) {
-			bodies_array.put(b.getId());
+			bodies_array.put(b.getState());
 		}
 		bgroup.put("bodies", bodies_array);
 		

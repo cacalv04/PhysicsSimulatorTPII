@@ -8,7 +8,6 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import simulator.misc.Vector2D;
 
 public class PhysicsSimulator {
 	
@@ -36,8 +35,8 @@ public class PhysicsSimulator {
 	public void advance() {
 		for(BodiesGroup g : groupsMap.values()) {
 			g.advance(dt);
-			actualTime += dt;
 		}
+		actualTime += dt;
 	}
 	
 	public void addGroup(String id) {
@@ -75,7 +74,10 @@ public class PhysicsSimulator {
 	}
 	
 	private void validArguements(double dt, ForceLaws fl) {
-		if(dt < 0) throw new IllegalArgumentException("[ERROR]: delta time not valid");
+		if(dt <= 0) throw new IllegalArgumentException("[ERROR]: delta time not valid");
 		if (fl == null) throw new IllegalArgumentException("[ERROR]: force law are null");
 	}
 }
+
+
+

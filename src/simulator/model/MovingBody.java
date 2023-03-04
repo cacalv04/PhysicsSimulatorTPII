@@ -21,7 +21,7 @@ public class MovingBody extends Body{
 			ace = force.scale(1.0/mass);
 			
 		}
-			pos = pos.plus(speed.scale(dt)).plus(ace.scale(0.5 * dt *dt));
+			pos = pos.plus(speed.scale(dt).plus(ace.scale(0.5 * dt *dt)));
 			speed = speed.plus(ace.scale(dt));
 	}
 	
