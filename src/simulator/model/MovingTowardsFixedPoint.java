@@ -12,7 +12,7 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 	public MovingTowardsFixedPoint(Vector2D c, double g) {
 		
 		try {
-			validArguments(c, g);
+			argumentsCheck(c, g);
 			vP = new Vector2D(c);
 			this.vP = new Vector2D(c);
 			this.g = g;
@@ -30,7 +30,7 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 		}
 	}
 	
-	private void validArguments(Vector2D c, double g) {
+	private void argumentsCheck(Vector2D c, double g) {
 		if(c == null || g <= 0) throw new IllegalArgumentException("[ERROR]: Invalid arguments for MTFP force law");
 	}
 

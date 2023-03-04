@@ -6,7 +6,7 @@ import simulator.misc.Vector2D;
 import simulator.model.ForceLaws;
 import simulator.model.MovingTowardsFixedPoint;
 
-public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws >{
+public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 
 	public MovingTowardsFixedPointBuilder() {
 		super("mtfp", "Moving towards a fixed point");
@@ -14,7 +14,7 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws >{
 	}
 
 	@Override
-	protected ForceLaws createInstance(JSONObject jsonObject) {
+	protected MovingTowardsFixedPoint createInstance(JSONObject jsonObject) {
 		// TODO Auto-generated method stub
 		double g;
 		Vector2D origen = null;

@@ -30,25 +30,21 @@ public class Controller {
 		try {
 			JSONObject jsonInput = new JSONObject(new JSONTokener(in));   //jsonInupt contiene lo que hay en todo el fichero in
 			
-			JSONArray groups = jsonInput.getJSONArray("groups");//groups es un array de todos los grupos que hay en formato JSON
+			JSONArray groups = jsonInput.getJSONArray("groups");		  //groups es un array de todos los grupos que hay en formato JSON
+			for(int i = 0; i < groups.length(); i++) {
+				sim.addGroup(groups.getString(i));							// se recorre el array de los objetos "groups" y se añaden al simulador
+			}
 			
 			if(jsonInput.has("laws")) {
-				JSONArray laws = jsonInput.getJSONArray("laws");
-				
-				//REVISAR
-				for(int i = 0; i < laws.length(); i++) {
+				JSONArray laws = jsonInput.getJSONArray("laws");		  // laws coge todos los objetos que contenga la clave laws
+				for(int i = 0; i < laws.length(); i++) {				// se rrecorren todas la leyes que vengan en la clave laws, y se le aplica al cuerpo que indique la clave "id" dentro de cada objeto law
 					sim.setForceLaws(laws.getJSONObject(i).getString("id"), lawsfac.createInstance(laws.getJSONObject(i).getJSONObject("laws")));
 				}
 			}
 			
-			JSONArray bodies = jsonInput.getJSONArray("bodies");
-			
-			for(int i = 0; i < groups.length(); i++) {
-				sim.addGroup(groups.getString(i));
-			}
-			
-			for(int i = 0; i < groups.length(); i++) {
-				sim.addBody(bodyfac.createInstance(bodies.getJSONObject(i)));
+			JSONArray bodies = jsonInput.getJSONArray("bodies");			// bodies coge todos los objetos JSON que contiene  la clave bodies		
+			for(int i = 0; i < bodies.length(); i++) {
+				sim.addBody(bodyfac.createInstance(bodies.getJSONObject(i))); // se recorre el array de objetos bodies y se aniaden al simulador 
 			}
 		}
 		catch (IllegalArgumentException ex) {
@@ -68,14 +64,15 @@ public class Controller {
 		PrintStream p = new PrintStream(out);
 		p.println("{ \"states\": [");
 		p.println(sim.getState());
-		p.print(", ");
+		//p.print(", ");
 		
 		for(int i = 1; i <= n; i++) {
-			p.println(sim.getState());
-			sim.advance();
 			p.print(", ");
+			sim.advance();
+			p.println(sim.getState());
 		}
 		
-		p.println("] }");
+		p.println("]");
+		p.println("}");
 	}
 }

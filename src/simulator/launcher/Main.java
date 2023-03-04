@@ -256,8 +256,8 @@ public class Main {
 			InputStream in = new FileInputStream(file);
 			
 			if(_outFile != null) {
-				File file3 = new File(_outFile);
-				out = new FileOutputStream(file3);
+				File file2 = new File(_outFile);
+				out = new FileOutputStream(file2);
 			}
 			else {
 				out = System.out;

@@ -19,7 +19,7 @@ public class PhysicsSimulator {
 
 	public PhysicsSimulator(ForceLaws fl, double dt) {
 		try {
-			validArguements(dt, fl);
+			argumentsCheck(dt, fl);
 			this.dt = dt;
 			this.laws = fl;
 			this.actualTime = 0.0;
@@ -73,7 +73,7 @@ public class PhysicsSimulator {
 		return getState().toString();
 	}
 	
-	private void validArguements(double dt, ForceLaws fl) {
+	private void argumentsCheck(double dt, ForceLaws fl) {
 		if(dt <= 0) throw new IllegalArgumentException("[ERROR]: delta time not valid");
 		if (fl == null) throw new IllegalArgumentException("[ERROR]: force law are null");
 	}

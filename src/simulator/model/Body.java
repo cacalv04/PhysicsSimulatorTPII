@@ -15,7 +15,7 @@ public abstract class Body {
 	
 	public Body(String ID, String GID, Vector2D pos, Vector2D speed, Double mass) {
 		try {
-			validArguements(ID, GID, speed, pos, mass);
+			arguementsCheck(ID, GID, speed, pos, mass);   //funcion con la que se comprueba la validez de los datos de entrada
 			this.ID = ID;
 			this.GID = GID;
 			this.speed = speed;
@@ -79,7 +79,7 @@ public abstract class Body {
 		return getState().toString();
 	}
 
-	private void validArguements(String iD2, String gID2, Vector2D speed2, Vector2D pos2, Double mass2) {
+	private void arguementsCheck(String iD2, String gID2, Vector2D speed2, Vector2D pos2, Double mass2) {
 		// TODO Auto-generated method stub
 		if(iD2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative IID");
 		if(gID2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative GID");

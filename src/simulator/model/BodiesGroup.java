@@ -6,8 +6,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import simulator.misc.Vector2D;
-
 public class BodiesGroup {
 
 	private String ID;
@@ -17,7 +15,7 @@ public class BodiesGroup {
 	public BodiesGroup(String id, ForceLaws fl) {
 		
 		try {
-			validArguments(id, fl);
+			argumentsCheck(id, fl);   //funcion con la que se comprueba la validez de los datos de entrada
 			this.ID = id;
 			this.laws = fl;
 			bodies = new ArrayList<Body>();
@@ -75,7 +73,7 @@ public class BodiesGroup {
 		return getState().toString();
 	}
 	
-	private void validArguments(String id2, ForceLaws fl) {
+	private void argumentsCheck(String id2, ForceLaws fl) {
 		// TODO Auto-generated method stub
 		if(id2 == null || fl == null || id2.isEmpty()) throw new IllegalArgumentException("[ERROR]: Illegal arguments for bodies Group");
 		if(id2.trim().length()==0) throw new IllegalArgumentException("[ERROR]: id not including a character not void");

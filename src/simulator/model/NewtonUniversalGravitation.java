@@ -11,7 +11,7 @@ public class NewtonUniversalGravitation implements ForceLaws{
 		this.g = g;
 		
 		try {
-			validArguments(g);
+			argumentsCheck(g);
 			this.g = g;
 		}catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(e.getMessage());
@@ -41,7 +41,7 @@ public class NewtonUniversalGravitation implements ForceLaws{
 		return "Newton's Universal Gravitation with G = " + g;
 	}
 	
-	private void validArguments(double g) {
+	private void argumentsCheck(double g) {
 		if(g <= 0 ) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative");
 	}
 }
