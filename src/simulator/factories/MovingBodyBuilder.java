@@ -16,17 +16,22 @@ public class MovingBodyBuilder extends Builder<Body>{
 
 	@Override
 	protected Body createInstance(JSONObject data) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub    //se comprueba que el data no sea nulo y tenga las claves necesarias
 		if(data == null) throw new IllegalArgumentException("[ERROR]: data is null");
 		if(!data.has("id") || !data.has("gid") || !data.has("p") || !data.has("v") || !data.has("m")) throw new IllegalArgumentException("[ERROR]: missing arguments");
 		
+		//se extraen los datos del JSON para crear la instancia de MovingBody
 		String id = data.getString("id");
 		String gid = data.getString("gid");
 		JSONArray paux = data.getJSONArray("p");
+		
+		//el vector posicion debe ser 2D
 		if(paux.length() != 2) throw new IllegalArgumentException("[ERROR]: p not 2D");
 
 		Vector2D p = new Vector2D(paux.getDouble(0), paux.getDouble(1));
 		JSONArray vaux = data.getJSONArray("v");
+		
+		//el vector velocidad debe ser 2D
 		if(vaux.length() != 2) throw new IllegalArgumentException("[ERROR]: p not 2D");
 
 		Vector2D v = new Vector2D(vaux.getDouble(0), vaux.getDouble(1));

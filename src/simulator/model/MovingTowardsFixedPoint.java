@@ -26,7 +26,7 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 	public void apply(List<Body> bs) {
 		// TODO Auto-generated method stub
 		for(Body b : bs) {
-			b.addForce(vP.minus(b.getPosition()).direction().scale(g * b.getMass()));
+			b.addForce(vP.minus(b.getPosition()).direction().scale(g * b.getMass()));	//m*g*(c - d)
 		}
 	}
 	

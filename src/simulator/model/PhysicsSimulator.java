@@ -19,7 +19,7 @@ public class PhysicsSimulator {
 
 	public PhysicsSimulator(ForceLaws fl, double dt) {
 		try {
-			argumentsCheck(dt, fl);
+			argumentsCheck(dt, fl);  //funcion que comprueba la validez de los datos de entrada
 			this.dt = dt;
 			this.laws = fl;
 			this.actualTime = 0.0;
@@ -29,7 +29,6 @@ public class PhysicsSimulator {
 		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(e.getMessage());
 		}
-		
 	}
 	
 	public void advance() {
@@ -39,19 +38,19 @@ public class PhysicsSimulator {
 		actualTime += dt;
 	}
 	
-	public void addGroup(String id) {
+	public void addGroup(String id) {  		//se comprueba que el grupo no exista ya
 		if(groupsMap.containsKey(id)) throw new IllegalArgumentException("[ERROR]: the group id arlready exists");
 		BodiesGroup bg = new BodiesGroup(id, laws);
 		groupsMap.put(id, bg);
 		BG.add(id);
 	}
 	
-	public void addBody(Body b) {
+	public void addBody(Body b) {  		//se comprueba que el grupo al que se quiere aniadir el cuerpo exista en el simulador
 		if(!groupsMap.containsKey(b.getgId()))throw new IllegalArgumentException("[ERROR]: the body group does not exists");
 		groupsMap.get(b.getgId()).addBody(b);
 	}
 	
-	public void setForceLaws(String id, ForceLaws fl) {
+	public void setForceLaws(String id, ForceLaws fl) {		//se comprueba que el grupo sobre el que se quiere aplicar la fuerza exista en el simulador
 		if(!groupsMap.containsKey(id))throw new IllegalArgumentException("[ERROR]: the body group does not exists");
 		groupsMap.get(id).setForceLaws(fl);
 	}
@@ -73,7 +72,7 @@ public class PhysicsSimulator {
 		return getState().toString();
 	}
 	
-	private void argumentsCheck(double dt, ForceLaws fl) {
+	private void argumentsCheck(double dt, ForceLaws fl) {		//se comprueba que dt sea mayor o igual a cero y que la ley no sea nula
 		if(dt <= 0) throw new IllegalArgumentException("[ERROR]: delta time not valid");
 		if (fl == null) throw new IllegalArgumentException("[ERROR]: force law are null");
 	}

@@ -38,14 +38,14 @@ public class BodiesGroup {
 		if(b == null)throw new IllegalArgumentException("[ERROR]: the body is null");
 		//if (bodies.contains(b)) throw new IllegalArgumentException("[ERROR]: the body already exists");
 		for(Body n : bodies) {
-			if(b.getId() == n.getId()) {
+			if(b.getId() == n.getId()) {				
 				throw new IllegalArgumentException("[ERROR]: the bodie's id already exists");
 			}
 		}
 		bodies.add(b);
 	}
 	
-	void advance(double dt) {
+	void advance(double dt) {  //se resetan los cuerpos, se aplica la ley y se avanzan los cuerpos
 		if (dt <= 0)throw new IllegalArgumentException("[ERROR]: delta time is negative");
 		for(Body b : bodies) {
 			b.resetForce();
@@ -74,8 +74,8 @@ public class BodiesGroup {
 	}
 	
 	private void argumentsCheck(String id2, ForceLaws fl) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub                     //se comrpueba que que ningun elemento sea nulo y el id no sea vacio
 		if(id2 == null || fl == null || id2.isEmpty()) throw new IllegalArgumentException("[ERROR]: Illegal arguments for bodies Group");
 		if(id2.trim().length()==0) throw new IllegalArgumentException("[ERROR]: id not including a character not void");
-	}
+	}															
 }

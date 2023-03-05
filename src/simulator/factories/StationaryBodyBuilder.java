@@ -15,7 +15,7 @@ public class StationaryBodyBuilder extends Builder<Body>{
 
 	@Override
 	protected StationaryBody createInstance(JSONObject data) {
-		if(data == null) throw new IllegalArgumentException("[ERROR]: data is null");
+		if(data == null) throw new IllegalArgumentException("[ERROR]: data is null"); //se comrpueba que data no sea nulo y contenga los campos necesarios
 		if(!data.has("id") || !data.has("gid") || !data.has("p") || !data.has("m")) throw new IllegalArgumentException("[ERROR]: missing arguments");
 		
 		String id = data.getString("id");
@@ -23,6 +23,7 @@ public class StationaryBodyBuilder extends Builder<Body>{
 		JSONArray paux = data.getJSONArray("p");
 		Vector2D p = new Vector2D(paux.getDouble(0), paux.getDouble(1));
 		
+		//se comeprueba que el vector posicion sea 2D
 		if(paux.length() != 2) throw new IllegalArgumentException("[ERROR]: p not 2D");
 		
 		double m = data.getDouble("m");

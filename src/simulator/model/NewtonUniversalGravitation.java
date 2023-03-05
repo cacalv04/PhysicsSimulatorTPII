@@ -33,7 +33,7 @@ public class NewtonUniversalGravitation implements ForceLaws{
 	private Vector2D force(Body a, Body b) {
 		Vector2D delta = b.getPosition().minus(a.getPosition());
 		double dist = delta.magnitude();
-		double magnitude = dist>0 ? (g * a.getMass() * b.getMass()) / (dist * dist) : 0.0;
+		double magnitude = dist>0 ? (g * a.getMass() * b.getMass()) / (dist * dist) : 0.0;  //se comprueba que dist sea mayor que cero, entonces (G*ma*mb)/(dist*dist)
 		return delta.direction().scale(magnitude);
 	}
 	

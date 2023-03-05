@@ -19,19 +19,12 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	}
 	public BuilderBasedFactory(List<Builder<T>> builders) {
 		this();
-		// call addBuilder(b) for each builder b in builder
-		// ...
-			for(Builder<T> b : builders) {
+			for(Builder<T> b : builders) {  		//se aniaden los builders a las factorias
 				this.addBuilder(b);
 			}
 		}
 		public void addBuilder(Builder<T> b) {
-		// add and entry ‘‘ b.getTag() −> b’’ to _builders.
-		// ...
-		// add b.getInfo () to _buildersInfo
-		// ...
-			
-			_builders.put(b.getTypeTag(), b);
+			_builders.put(b.getTypeTag(), b);  	//se aniade el builder a su factoria
 			_buildersInfo.add(b.getInfo());
 		}
 		
@@ -42,16 +35,10 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 			if (info == null) {
 				throw new IllegalArgumentException("Invalid value for createInstance:null");
 			}
-		// Search for a builder with a tag equals to info . getString ("type"), call its
-		// createInstance method and return the result if it is not null . The value you
-		// pass to createInstance is :
-		//
-		// info . has("data") ? info . getJSONObject("data") : new getJSONObject()
-		// If no builder is found or thr result is null ...
-			if(!_builders.containsKey(info.getString("type"))) {
+			if(!_builders.containsKey(info.getString("type"))) { 			 //si no existe un builder con dicho tag, se lanza excepcion
 				throw new IllegalArgumentException("[ERROR]: builder not found");
 			}
-			if(info.has("data")) {
+			if(info.has("data")) { 											// se crea le pasa al builder el json para que cree la instancia
 				bb  = _builders.get(info.getString("type")).createInstance(info.getJSONObject("data"));
 			}
 			else {

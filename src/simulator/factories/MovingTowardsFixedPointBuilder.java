@@ -17,28 +17,28 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	protected MovingTowardsFixedPoint createInstance(JSONObject jsonObject) {
 		// TODO Auto-generated method stub
 		double g;
-		Vector2D origen = null;
+		Vector2D c = null;
 		String data = null;
 		
-		if(jsonObject.has("g")) {
+		if(jsonObject.has("g")) { 		//se comprueba que traiga la clave g, si no se usa el valor predeterminado
 			g = jsonObject.getDouble("g");
 		}
 		else{ 
 			g = 9.81;
 		}
 		
-		if(jsonObject.has("c")) {    
+		if(jsonObject.has("c")) {    	//se comprueba que traiga la clave c, si no se usa el valor predeterminado
 			data = jsonObject.getString("c");	
 			
 			String[] datos2 = data.replace(" ", "").replace("[", "").replace("]", "").split(",");
-			origen = new Vector2D(Double.parseDouble(datos2[0]), Double.parseDouble(datos2[1]));
+			c = new Vector2D(Double.parseDouble(datos2[0]), Double.parseDouble(datos2[1]));
 			
 		}
 		else {
-			origen = new Vector2D(0, 0);
+			c = new Vector2D(0, 0);
 		}
 		
-	    return new MovingTowardsFixedPoint(origen, g);
+	    return new MovingTowardsFixedPoint(c, g);
 	}
 
 	

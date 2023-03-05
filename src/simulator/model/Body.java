@@ -80,7 +80,7 @@ public abstract class Body {
 	}
 
 	private void arguementsCheck(String iD2, String gID2, Vector2D speed2, Vector2D pos2, Double mass2) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		//se compriba que ningun elemento sea nulo, que el id y gid no sean vacios y que la masa tenga valor positivo
 		if(iD2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative IID");
 		if(gID2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative GID");
 		if(speed2 == null) throw new IllegalArgumentException("[ERROR]: an argument value is null or negative SPEED");
