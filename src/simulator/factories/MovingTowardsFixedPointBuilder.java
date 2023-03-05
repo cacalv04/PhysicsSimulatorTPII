@@ -35,7 +35,7 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 			
 		}
 		else {
-			origen = new Vector2D();
+			origen = new Vector2D(0, 0);
 		}
 		
 	    return new MovingTowardsFixedPoint(origen, g);
