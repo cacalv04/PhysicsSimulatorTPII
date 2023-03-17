@@ -9,5 +9,8 @@ public class NoForce implements ForceLaws{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public String toString() {
+		return "No force";
+	}
 }

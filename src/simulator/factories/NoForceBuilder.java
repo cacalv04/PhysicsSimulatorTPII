@@ -16,6 +16,15 @@ public class NoForceBuilder extends Builder<ForceLaws> {
 		if(data == null) throw new IllegalArgumentException("[ERROR]: data is null");
 		return new NoForce();
 	}
+	
+	public JSONObject getInfo() {
+		JSONObject js = new JSONObject();
+		js.put("type", "nf");
+		js.put("desc", "No force");
+		js.put("data", new JSONObject());
+		
+		return js;
+	}
 
 }
 

@@ -1,6 +1,7 @@
 package simulator.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,14 +12,16 @@ public class BodiesGroup {
 	private String ID;
 	private ForceLaws laws;
 	private List<Body> bodies;
+	private List<Body> bodiesRO;
 	
-	public BodiesGroup(String id, ForceLaws fl) {
+	public BodiesGroup(String id, ForceLaws fl){
 		
 		try {
 			argumentsCheck(id, fl);   //funcion con la que se comprueba la validez de los datos de entrada
 			this.ID = id;
 			this.laws = fl;
 			bodies = new ArrayList<Body>();
+			bodiesRO = Collections.unmodifiableList(bodies);
 		}
 		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(e.getMessage());
@@ -54,6 +57,10 @@ public class BodiesGroup {
 		for(Body b : bodies) {
 			b.advance(dt);
 		}
+	}
+	
+	public String getForceLawsInfo() {
+		return laws.toString();
 	}
 	
 	public JSONObject getState() {

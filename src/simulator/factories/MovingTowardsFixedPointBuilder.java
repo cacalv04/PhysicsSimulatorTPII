@@ -7,6 +7,9 @@ import simulator.model.ForceLaws;
 import simulator.model.MovingTowardsFixedPoint;
 
 public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
+	
+	private double g = 9.81;
+	private Vector2D c = null;
 
 	public MovingTowardsFixedPointBuilder() {
 		super("mtfp", "Moving towards a fixed point");
@@ -16,15 +19,11 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	@Override
 	protected MovingTowardsFixedPoint createInstance(JSONObject jsonObject) {
 		// TODO Auto-generated method stub
-		double g;
-		Vector2D c = null;
+		
 		String data = null;
 		
 		if(jsonObject.has("g")) { 		//se comprueba que traiga la clave g, si no se usa el valor predeterminado
 			g = jsonObject.getDouble("g");
-		}
-		else{ 
-			g = 9.81;
 		}
 		
 		if(jsonObject.has("c")) {    	//se comprueba que traiga la clave c, si no se usa el valor predeterminado
@@ -41,6 +40,16 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	    return new MovingTowardsFixedPoint(c, g);
 	}
 
-	
+	public JSONObject getInfo() {
+		JSONObject js = new JSONObject();
+		js.put("type", "mtfp");
+		js.put("desc", "Moving towards a fixed point");
+		JSONObject js2 = new JSONObject();
+		js2.put("c", "the point towards which bodies move" + c.toString());
+		js2.put("g", "the length of the acceleration vector" + g);
+		js.put("data", js2);
+		
+		return js;
+	}
 
 }

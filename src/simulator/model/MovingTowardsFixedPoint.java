@@ -30,6 +30,10 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 		}
 	}
 	
+	public String toString() {
+		return "Moving towards " + vP.toString() + " with constant aceleration " + g;
+	}
+	
 	private void argumentsCheck(Vector2D c, double g) {
 		if(c == null || g <= 0) throw new IllegalArgumentException("[ERROR]: Invalid arguments for MTFP force law");
 	}
