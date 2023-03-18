@@ -55,7 +55,7 @@ public class MainWindow extends JFrame {
 		contentPanel.add(bodiesTable);
 		
 		// TODO llama a Utils.quit(MainWindow.this) en el método windowClosing
-		addWindowListener( … );
+		//addWindowListener( … );
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		pack();
 		setVisible(true);

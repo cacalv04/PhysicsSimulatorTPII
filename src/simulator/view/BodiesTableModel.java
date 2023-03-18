@@ -1,6 +1,7 @@
 package simulator.view;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,80 +16,96 @@ import simulator.model.SimulatorObserver;
 
 public class BodiesTableModel extends AbstractTableModel implements SimulatorObserver {
 
-	
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	String[] _header = { "Id", "gId", "Mass", "Velocity", "Position", "Force"};
-	List<BodiesGroup> _bodies;
+	private String[] _header = { "Id", "gId", "Mass", "Velocity", "Position", "Force"};
+	private List<Body> _bodies;
 	
 	BodiesTableModel(Controller c){
-		_bodies = new ArrayList<>();
+		_bodies = new ArrayList<Body>();
 		c.addObserver(this);
 	}
 	
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return _bodies.size();
 	}
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return _header.length;
 	}
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onAdvance(Map<String, BodiesGroup> groups, double time) {
-		// TODO Auto-generated method stub
+	public Object getValueAt(int f, int c) {
+		Object o = null;
 		
+		switch(c) {
+			case 0:
+				o = _bodies.get(f).getId();
+				break;
+			case 1:
+				o = _bodies.get(f).getgId();
+				break;
+			case 2:
+				o = _bodies.get(f).getMass();
+				break;
+			case 3:
+				o = _bodies.get(f).getVelocity();
+				break;
+			case 4:
+				o = _bodies.get(f).getPosition();
+				break;
+			case 5:
+				o = _bodies.get(f).getForce();
+				break;
+		}
+		
+		return o;
 	}
 
 	@Override
 	public void onReset(Map<String, BodiesGroup> groups, double time, double dt) {
-		// TODO Auto-generated method stub
-		
+		updateList(groups);
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onRegister(Map<String, BodiesGroup> groups, double time, double dt) {
-		// TODO Auto-generated method stub
-		
+		updateList(groups);
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onGroupAdded(Map<String, BodiesGroup> groups, BodiesGroup g) {
-		// TODO Auto-generated method stub
-		
+		updateList(groups);
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onBodyAdded(Map<String, BodiesGroup> groups, Body b) {
-		// TODO Auto-generated method stub
-		
+		updateList(groups);
+		fireTableDataChanged();
 	}
 
 	@Override
-	public void onDeltaTimeChanged(double dt) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onDeltaTimeChanged(double dt) {}
 
 	@Override
-	public void onForceLawsChanged(BodiesGroup g) {
-		// TODO Auto-generated method stub
-		
+	public void onForceLawsChanged(BodiesGroup g) {}
+
+	@Override
+	public void onAdvance(Map<String, BodiesGroup> groups, double time) {
+		updateList(groups);
+		fireTableDataChanged();
 	}
 
-	
+	private void updateList(Map<String, BodiesGroup> groups) {
+		for(Map.Entry<String, BodiesGroup> grupo : groups.entrySet()) {
+			Iterator<Body> it = grupo.getValue().getIterator();
+			while(it.hasNext()) {
+				_bodies.add(it.next());
+			}
+		}
+	}
 
 }

@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -84,5 +85,9 @@ public class BodiesGroup {
 		// TODO Auto-generated method stub                     //se comrpueba que que ningun elemento sea nulo y el id no sea vacio
 		if(id2 == null || fl == null || id2.isEmpty()) throw new IllegalArgumentException("[ERROR]: Illegal arguments for bodies Group");
 		if(id2.trim().length()==0) throw new IllegalArgumentException("[ERROR]: id not including a character not void");
-	}															
+	}
+	
+	public Iterator<Body> getIterator() {
+		return bodiesRO.iterator();
+	}
 }
