@@ -32,6 +32,8 @@ public class Controller {
 		try {
 			JSONObject jsonInput = new JSONObject(new JSONTokener(in));   //jsonInupt contiene lo que hay en todo el fichero in
 			
+			//sim.reset();
+			
 			JSONArray groups = jsonInput.getJSONArray("groups");		  //groups es un array de todos los grupos que hay en formato JSON
 			for(int i = 0; i < groups.length(); i++) {
 				sim.addGroup(groups.getString(i));							// se recorre el array de los objetos "groups" y se añaden al simulador

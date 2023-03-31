@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -28,6 +30,7 @@ import simulator.factories.StationaryBodyBuilder;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
 import simulator.model.PhysicsSimulator;
+import simulator.view.MainWindow;
 
 
 public class Main {
@@ -37,6 +40,8 @@ public class Main {
 	private final static Integer _stepsDefaultValue = 150;
 	private final static Double _dtimeDefaultValue = 2500.0;
 	private final static String _forceLawsDefaultValue = "nlug";
+	private final static String _ModeDefaultValue = "gui";
+
 
 	// some attributes to stores values corresponding to command-line parameters
 	//
@@ -44,6 +49,7 @@ public class Main {
 	private static Double _dtime = null;
 	private static String _inFile = null;
 	private static String _outFile = null;
+	private static String _Mode = null;    
 	private static JSONObject _forceLawsInfo = null;
 
 	// factories
@@ -81,6 +87,7 @@ public class Main {
 			parseForceLawsOption(line);
 			parseOutFileOption(line);
 			parseNumberOfSteps(line);
+			parseModeOption(line);
 
 
 			// if there are some remaining arguments, then something wrong is
@@ -100,6 +107,8 @@ public class Main {
 		}
 
 	}
+
+	
 
 	private static Options buildOptions() {
 		Options cmdLineOptions = new Options();
@@ -135,6 +144,13 @@ public class Main {
 						+ " ")
 				.build());
 				
+		//mode option
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg()
+				.desc(" Execution Mode. Possible values: 'batch' (Batch\n"
+						+ "mode), 'gui' (Graphical User Interface mode).\n"
+						+ "Default value: 'gui'.\n"
+						+ "")
+				.build());
 
 		return cmdLineOptions;
 	}
@@ -176,6 +192,11 @@ public class Main {
 		}
 	}
 	
+	private static void parseModeOption(CommandLine line) {
+		// TODO Auto-generated method stub
+		_Mode = line.getOptionValue("m", _ModeDefaultValue.toString());
+	}
+	
 	private static void parseOutFileOption(CommandLine line) {
 		// TODO Auto-generated method stub
 		_outFile = line.getOptionValue("o");
@@ -184,7 +205,7 @@ public class Main {
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
+		if (_inFile == null && _Mode == "batch") {
 			throw new ParseException("In batch mode an input file of bodies is required");
 		}
 	}
@@ -274,7 +295,34 @@ public class Main {
 
 	private static void start(String[] args) throws Exception {
 		parseArgs(args);
-		startBatchMode();
+		if(_Mode.equals(null)) {
+			startGUIMode();
+		}
+		else if(_Mode.equals("batch")){
+			startBatchMode();
+		}else {
+			startGUIMode();
+		}
+	}
+
+	private static void startGUIMode() throws Exception {
+		// TODO Auto-generated method stub
+		PhysicsSimulator simulador = new PhysicsSimulator(_forceLawsFactory.createInstance(_forceLawsInfo), _dtime);  
+		Controller controller = new Controller(simulador, _bodyFactory, _forceLawsFactory);
+
+		if(_inFile != null) {
+			File file = new File(_inFile);
+			InputStream in = new FileInputStream(file);
+			controller.loadData(in);
+		}
+
+		SwingUtilities.invokeAndWait(new Runnable() {
+			@Override
+			public void run() {
+				new MainWindow(controller);
+			}
+		});
+		
 	}
 
 	public static void main(String[] args) {

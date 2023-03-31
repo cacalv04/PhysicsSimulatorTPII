@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 
 import simulator.control.Controller;
 
@@ -17,6 +16,8 @@ public class MainWindow extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Controller _ctrl;
+	private ControlPanel controlPanel;
+	private StatusBar statusBar;
 	
 	public MainWindow(Controller ctrl) {
 		super("Physics Simulator");
@@ -30,12 +31,12 @@ public class MainWindow extends JFrame {
 		setContentPane(mainPanel);
 		
 		// TODO crear ControlPanel y añadirlo en PAGE_START de mainPanel
-		JPanel ControlPanel = new JPanel();
-		mainPanel.add(ControlPanel, BorderLayout.PAGE_START);
+		controlPanel = new ControlPanel(_ctrl);
+		mainPanel.add(controlPanel, BorderLayout.PAGE_START);
 		
 		// TODO crear StatusBar y añadirlo en PAGE_END de mainPanel
-		JPanel StatusBar = new JPanel();
-		mainPanel.add(StatusBar, BorderLayout.PAGE_END);
+		statusBar = new StatusBar(_ctrl);
+		mainPanel.add(statusBar, BorderLayout.PAGE_END);
 		
 		// Definición del panel de tablas (usa un BoxLayout vertical)
 		JPanel contentPanel = new JPanel();
@@ -51,13 +52,14 @@ public class MainWindow extends JFrame {
 		// TODO crear la tabla de cuerpos y añadirla a contentPanel.
 		// Usa setPreferredSize(new Dimension(500, 250)) para fijar su tamaño
 		InfoTable bodiesTable = new InfoTable("Bodies", new BodiesTableModel(_ctrl));
-		bodiesTable.setPreferredSize(new Dimension(500, 200));
+		bodiesTable.setPreferredSize(new Dimension(500, 250));
 		contentPanel.add(bodiesTable);
 		
 		// TODO llama a Utils.quit(MainWindow.this) en el método windowClosing
 		//addWindowListener( … );
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }

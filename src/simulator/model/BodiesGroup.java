@@ -8,7 +8,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class BodiesGroup {
+public class BodiesGroup implements Iterable<Body>{
 
 	private String ID;
 	private ForceLaws laws;
@@ -87,7 +87,18 @@ public class BodiesGroup {
 		if(id2.trim().length()==0) throw new IllegalArgumentException("[ERROR]: id not including a character not void");
 	}
 	
-	public Iterator<Body> getIterator() {
-		return bodiesRO.iterator();
+	public List<Body> getBodies() {
+		List<Body> l = new ArrayList<>();
+		Iterator<Body> it = this.iterator();
+		while(it.hasNext()) {
+			l.add(it.next());
+		}
+		return l;
 	}
+
+	@Override
+	public Iterator<Body> iterator() {
+		// TODO Auto-generated method stub
+		return bodiesRO.iterator();
+	}															
 }
