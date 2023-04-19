@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import simulator.control.Controller;
@@ -33,7 +32,7 @@ public class ViewerWindow extends JFrame implements SimulatorObserver{
 		_parent = parent;
 		intiGUI();
 		// TODO registrar this como observador
-		ctrl.addObserver(this);
+		_ctrl.addObserver(this);
 	}
 
 	private void intiGUI() {

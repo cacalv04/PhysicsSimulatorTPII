@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 
 import simulator.misc.Vector2D;
 import simulator.model.BodiesGroup;
@@ -299,7 +298,7 @@ class Viewer extends SimulationViewer {
 		 * Selected Group: ...
 		 * 
 		 */
-		
+		g.setColor(Color.ORANGE);
 		g.drawString("h: toggle help, v: toggle vectors, +: zoom-in, -: zoom-out, =: fit", 12, 15);
 		g.drawString("g: show next group", 12, 30);
 		g.drawString("l: move right, j: move left, i: move up, m: move down: k: reset", 12, 45);

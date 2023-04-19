@@ -46,6 +46,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 	private ForceLawsDialog fld;
 	private JTextField dtTF;
 	private JSpinner stepsJS;
+	private ViewerWindow vw;
 	
 	
 	ControlPanel(Controller c){
@@ -179,6 +180,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 		_toolaBar.add(dtTF);
 		_toolaBar.addSeparator();
 		_toolaBar.add(_quitButton);
+		
+		_toolaBar.setFloatable(false);
 	}		
 
 	protected void stopButtonListener() {
@@ -239,9 +242,10 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 		}
 	}
 
+	
 	protected void createViewListener() {
 		// TODO Auto-generated method stub
-		ViewerWindow vw = new ViewerWindow((JFrame)SwingUtilities.getWindowAncestor(this), _ctrl);
+		vw = new ViewerWindow((JFrame)SwingUtilities.getWindowAncestor(this), _ctrl);
 	}
 
 	protected void changePhysicsListener() {

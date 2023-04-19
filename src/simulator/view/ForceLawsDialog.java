@@ -14,10 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.control.Controller;
@@ -156,9 +158,10 @@ public class ForceLawsDialog extends JDialog implements SimulatorObserver{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				JSONObject cv = new JSONObject();
+				/*JSONObject cv = new JSONObject();
 				JSONObject js = new JSONObject();
-				for(int i = 0; i < _dataTableModel.getRowCount(); i++) { 
+				JSONArray ja = new JSONArray();
+				for(int i = 1; i < _dataTableModel.getRowCount(); i++) { 
 					cv.put(_dataTableModel.getValueAt(i, 0).toString(), _dataTableModel.getValueAt(i, 1));
 				}
 				
@@ -168,8 +171,48 @@ public class ForceLawsDialog extends JDialog implements SimulatorObserver{
 				_ctrl.setForcesLaws(_groupsCB.getSelectedItem().toString(), js);
 				
 				_status = 1;
+				setVisible(false);*/
+				JSONObject json = new JSONObject();
+				json.put("type", _forceLawsInfo.get(_laws.getSelectedIndex()).getString("type"));
+				json.put("data",  new JSONObject());
+				JSONObject j = new JSONObject();
+				for(int i = 1; i < _dataTableModel.getRowCount(); i++) { 
+					Object s = _dataTableModel.getValueAt(i, 1);
+					
+					if(s != null) {      //La column es 1 por que es ahi donde se alojan los valores de las claves
+						String str = (String) s;
+						String datos[] = str.split(",");        //Comprueba si es un único valor o un vector2D
+						if(datos.length == 1) {
+							try {					
+								double num = Double.parseDouble(str);
+								j.put(_dataTableModel.getValueAt(i, 0).toString(), num);
+								json.put("data", j);
+							}
+							catch (NumberFormatException  ex){
+								JOptionPane.showMessageDialog(null, "Error al parsear el numero", "No se ha introducido un numero en la variable: " + _dataTableModel.getValueAt(i, 0).toString(), i);
+							}
+						}
+						else {
+							JSONArray num = new JSONArray();
+							
+							for(int m = 0; m < datos.length; m++) {
+								try {
+									num.put(Double.parseDouble(datos[m]));
+								}
+								catch (NumberFormatException  ex){
+									JOptionPane.showMessageDialog(null, "Error al parsear el numero", "No se ha introducido un numero en la variable: " + _dataTableModel.getValueAt(i, 0).toString(), i);
+								}
+							}
+							//str = "[" + num.get(0) + "," + num.get(1) + "]";
+							j.put(_dataTableModel.getValueAt(i, 0).toString(), num);
+							json.put("data", j);
+							
+						}
+					}				
+				}
+				_ctrl.setForcesLaws(_groupsCB.getSelectedItem().toString(), json);
+				_status = 1;
 				setVisible(false);
-				
 			}
 		});
 		
@@ -195,6 +238,7 @@ public class ForceLawsDialog extends JDialog implements SimulatorObserver{
 		setPreferredSize(new Dimension(700, 400));
 		pack();
 		setResizable(false);
+		//setLocationRelativeTo(null);
 		setVisible(false);
 	}
 	
@@ -238,10 +282,9 @@ public class ForceLawsDialog extends JDialog implements SimulatorObserver{
 	@Override
 	public void onReset(Map<String, BodiesGroup> groups, double time, double dt) {
 		// TODO Auto-generated method stub
-		for(BodiesGroup i : groups.values()) {
-			_groupsModel.addElement(i.getId());
-		}
+		_groupsModel.removeAllElements();
 	}
+	
 
 	@Override
 	public void onRegister(Map<String, BodiesGroup> groups, double time, double dt) {
@@ -254,9 +297,9 @@ public class ForceLawsDialog extends JDialog implements SimulatorObserver{
 	@Override
 	public void onGroupAdded(Map<String, BodiesGroup> groups, BodiesGroup g) {
 		// TODO Auto-generated method stub
-		for(BodiesGroup i : groups.values()) {
-			_groupsModel.addElement(i.getId());
-		}
+		
+		_groupsModel.addElement(g.getId());
+		
 	}
 
 	@Override

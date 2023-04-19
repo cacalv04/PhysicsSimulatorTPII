@@ -8,9 +8,7 @@ import simulator.model.MovingTowardsFixedPoint;
 
 public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	
-	private double g = 9.81;
-	private Vector2D c = new Vector2D();
-
+	
 	public MovingTowardsFixedPointBuilder() {
 		super("mtfp", "Moving towards a fixed point");
 		// TODO Auto-generated constructor stub
@@ -19,25 +17,24 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	@Override
 	protected MovingTowardsFixedPoint createInstance(JSONObject jsonObject) {
 		// TODO Auto-generated method stub
+		double g;
+		Vector2D aux = null;
 		
-		String data = null;
-		
-		if(jsonObject.has("g")) { 		//se comprueba que traiga la clave g, si no se usa el valor predeterminado
+		if(jsonObject.has("g")) {
 			g = jsonObject.getDouble("g");
 		}
+		else{ 
+			g = 9.81;
+		}
 		
-		if(jsonObject.has("c")) {    	//se comprueba que traiga la clave c, si no se usa el valor predeterminado
-			data = jsonObject.getString("c");	
-			
-			String[] datos2 = data.replace(" ", "").replace("[", "").replace("]", "").split(",");
-			c = new Vector2D(Double.parseDouble(datos2[0]), Double.parseDouble(datos2[1]));
-			
+		if(jsonObject.has("c")) {    
+			aux = new Vector2D(jsonObject.getJSONArray("c").getDouble(0), jsonObject.getJSONArray("c").getDouble(1));
 		}
 		else {
-			c = new Vector2D(0, 0);
+			aux = new Vector2D(0, 0);
 		}
 		
-	    return new MovingTowardsFixedPoint(c, g);
+	    return new MovingTowardsFixedPoint(aux, g);
 	}
 
 	public JSONObject getInfo() {

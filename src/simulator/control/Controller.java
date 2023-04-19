@@ -42,7 +42,7 @@ public class Controller {
 			if(jsonInput.has("laws")) {
 				JSONArray laws = jsonInput.getJSONArray("laws");		  // laws coge todos los objetos que contenga la clave laws
 				for(int i = 0; i < laws.length(); i++) {				// se rrecorren todas la leyes que vengan en la clave laws, y se le aplica al cuerpo que indique la clave "id" dentro de cada objeto law
-					sim.setForceLaws(laws.getJSONObject(i).getString("id"), lawsfac.createInstance(laws.getJSONObject(i).getJSONObject("laws")));
+ 					sim.setForceLaws(laws.getJSONObject(i).getString("id"), lawsfac.createInstance(laws.getJSONObject(i).getJSONObject("laws")));
 				}
 			}
 			
