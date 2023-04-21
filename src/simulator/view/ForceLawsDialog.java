@@ -200,7 +200,7 @@ public class ForceLawsDialog extends JDialog implements SimulatorObserver{
 									num.put(Double.parseDouble(datos[m]));
 								}
 								catch (NumberFormatException  ex){
-									JOptionPane.showMessageDialog(null, "Error al parsear el numero", "No se ha introducido un numero en la variable: " + _dataTableModel.getValueAt(i, 0).toString(), i);
+									JOptionPane.showMessageDialog(null, "El valor de una de las variables tiene el formato incorrecto");
 								}
 							}
 							//str = "[" + num.get(0) + "," + num.get(1) + "]";
@@ -210,7 +210,12 @@ public class ForceLawsDialog extends JDialog implements SimulatorObserver{
 						}
 					}				
 				}
-				_ctrl.setForcesLaws(_groupsCB.getSelectedItem().toString(), json);
+				try {
+					_ctrl.setForcesLaws(_groupsCB.getSelectedItem().toString(), json);
+				}
+				catch (Exception ep) {
+					JOptionPane.showMessageDialog(null, "Error en el formato de los datos intriducidos");
+				}
 				_status = 1;
 				setVisible(false);
 			}

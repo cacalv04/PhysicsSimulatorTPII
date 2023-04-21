@@ -63,7 +63,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 				
 		loadB = new JButton();
 		loadB.setIcon(new ImageIcon("resources/icons/open.png"));
-		loadB.setToolTipText("open");
+		loadB.setToolTipText("Load an input file into the simulator");
 		loadB.addActionListener(new ActionListener() {
 			
 			@Override
@@ -75,7 +75,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 		
 		flDialogB = new JButton();
 		flDialogB.setIcon(new ImageIcon("resources/icons/physics.png"));
-		flDialogB.setToolTipText("physics");
+		flDialogB.setToolTipText("Select force laws for groups");
 		flDialogB.addActionListener(new ActionListener() {
 			
 			@Override
@@ -87,7 +87,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 		
 		viewB = new JButton();
 		viewB.setIcon(new ImageIcon("resources/icons/viewer.png"));
-		viewB.setToolTipText("open");
+		viewB.setToolTipText("Open viewer window");
 		viewB.addActionListener(new ActionListener() {
 			
 			@Override
@@ -99,7 +99,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 		
 		stopB = new JButton();
 		stopB.setIcon(new ImageIcon("resources/icons/stop.png"));
-		stopB.setToolTipText("open");
+		stopB.setToolTipText("Stop the simulator");
 		stopB.addActionListener(new ActionListener() {
 			
 			
@@ -112,7 +112,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 		
 		runB = new JButton();
 		runB.setIcon(new ImageIcon("resources/icons/run.png"));
-		runB.setToolTipText("open");
+		runB.setToolTipText("Run the simulator");
 		runB.addActionListener(new ActionListener() {
 			
 			
@@ -128,8 +128,10 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 		JLabel labelDeltaTime = new JLabel("Delta-time:");
 		Dimension d = new Dimension(200, 40);
 		stepsJS = new JSpinner(new SpinnerNumberModel(10000, 1, 10000, 100));
+		stepsJS.setToolTipText("Simulation steps to run: 1-10000");
         stepsJS.setMaximumSize(d);
         dtTF = new JTextField();
+        dtTF.setToolTipText("Real time (seconds) corresponding to a step");
         dtTF.addKeyListener(new KeyAdapter()
         {
            public void keyTyped(KeyEvent e)
@@ -157,7 +159,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver{
 		_toolaBar.add(Box.createGlue()); // this aligns the button to the right
 		_toolaBar.addSeparator();
 		_quitButton = new JButton();
-		_quitButton.setToolTipText("Quit");
+		_quitButton.setToolTipText("Exit");
 		_quitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
 		_quitButton.addActionListener((e) -> Utils.quit(this));
 		

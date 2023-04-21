@@ -1,5 +1,7 @@
 package simulator.factories;
 
+import javax.swing.JOptionPane;
+
 import org.json.JSONObject;
 
 import simulator.misc.Vector2D;
@@ -17,23 +19,21 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	@Override
 	protected MovingTowardsFixedPoint createInstance(JSONObject jsonObject) {
 		// TODO Auto-generated method stub
-		double g;
+		double g = 0;
 		Vector2D aux = null;
-		
-		if(jsonObject.has("g")) {
-			g = jsonObject.getDouble("g");
-		}
-		else{ 
-			g = 9.81;
-		}
-		
-		if(jsonObject.has("c")) {    
-			aux = new Vector2D(jsonObject.getJSONArray("c").getDouble(0), jsonObject.getJSONArray("c").getDouble(1));
-		}
-		else {
-			aux = new Vector2D(0, 0);
-		}
-		
+			if(jsonObject.has("g")) {
+				g = jsonObject.getDouble("g");
+			}
+			else{ 
+				g = 9.81;
+			}
+			
+			if(jsonObject.has("c")) {    
+				aux = new Vector2D(jsonObject.getJSONArray("c").getDouble(0), jsonObject.getJSONArray("c").getDouble(1));
+			}
+			else {
+				aux = new Vector2D(0, 0);
+			}
 	    return new MovingTowardsFixedPoint(aux, g);
 	}
 

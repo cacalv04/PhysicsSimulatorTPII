@@ -19,6 +19,7 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws> {
 		// TODO Auto-generated method stub
 		
 		if(jsonObject.has("G")) {  		//si el JSON trae el valor G, se coge, si no se usa el predeterminado
+			//if()
 			g = jsonObject.getDouble("G");   
 		}
 		else { 
